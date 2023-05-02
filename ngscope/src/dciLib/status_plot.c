@@ -159,7 +159,7 @@ void* plot_thread_run(void* arg)
     plot_waterfall_t csi_water;
 
     plot_waterfall_init(&csi_water, nof_sub, 100);
-    plot_waterfall_setTitle(&csi_water, "Channel Response - Magnitude");
+    plot_waterfall_setTitle(&csi_water, "Channel Response(mark1) - Magnitude");
     plot_complex_setPlotXLabel(&csi_water, "Subcarrier Index"); 
     plot_complex_setPlotYLabel(&csi_water, "dB"); 
     plot_waterfall_setSpectrogramXLabel(&csi_water, "Subcarrier Index"); 
@@ -304,7 +304,7 @@ void* plot_pdcch_run(void* arg)
     plot_real_addToWindowGrid(&pdcch, (char*)"pdsch_ue", 0, 0);
 
     plot_real_init(&csi);
-    plot_real_setTitle(&csi, "Channel Response - Magnitude");
+    plot_real_setTitle(&csi, "Channel Response(mark2) - Magnitude");
     plot_real_setLabels(&csi, "Subcarrier Index", "dB");
     plot_real_setYAxisScale(&csi, -40, 40);
     plot_real_addToWindowGrid(&csi, (char*)"pdsch_ue", 0, 1);

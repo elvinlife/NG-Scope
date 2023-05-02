@@ -457,10 +457,12 @@ void* dci_decoder_thread(void* p){
 	}
 //    uint64_t t1=0, t2=0, t3=0, t4=0;  
 	char fileName[100];
-	sprintf(fileName,"decoder_%d.txt", decoder_idx);
+	sprintf(fileName,"/home/alvin/Desktop/decoder_%s_%d.txt", 
+		dci_decoder->prog_args.log_suffix, decoder_idx);
 	FILE* fd = fopen(fileName,"w+");
 
     printf("Decoder thread idx:%d\n\n\n",decoder_idx);
+	fprintf(fd, "nof_prb: %d\n", nof_prb);
 
     while(!go_exit){
                 
@@ -517,11 +519,14 @@ void* dci_decoder_thread(void* p){
 					}
 					int g = (sz - 12 * nof_prb) / 2;
 					for (int i = 0; i < 12 * nof_prb; i++) {
-						csi_amp[rf_idx][g + i] = srsran_convert_amplitude_to_dB(cabsf(dci_decoder->ue_dl.chest_res.ce[0][0][i]));
+						float sinr_db = srsran_convert_amplitude_to_dB(cabsf(dci_decoder->ue_dl.chest_res.ce[0][0][i]));
+						csi_amp[rf_idx][g + i] = sinr_db;
 						if (isinf(csi_amp[rf_idx][g + i])) {
 							csi_amp[rf_idx][g + i] = -80;
 						}
+						fprintf(fd, "%.2f ", csi_amp[rf_idx][g+i]);
 					}
+					fprintf(fd, "\n");
 					pthread_cond_signal(&dci_plot_cond[rf_idx]);
 					pthread_mutex_unlock(&dci_plot_mutex[rf_idx]);    
 				}

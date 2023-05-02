@@ -63,6 +63,8 @@ typedef struct {
   int      verbose;
   bool     enable_256qam;
   bool     use_standard_lte_rate;
+
+  char     log_suffix[20];
 } prog_args_t;
 
 void args_default(prog_args_t* args);

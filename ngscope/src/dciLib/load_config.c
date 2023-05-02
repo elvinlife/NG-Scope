@@ -39,6 +39,12 @@ int ngscope_read_config(ngscope_config_t* config){
 //    }
 //    strcpy(config->servIP, servIP);
 //
+    const char* log_suffix;
+    if(! config_lookup_string(cfg, "log_suffix", &log_suffix)) {
+        printf("The logging has no suffix");
+    }
+    strcpy(config->log_suffix, log_suffix);
+
     if(! config_lookup_int(cfg, "nof_rf_dev", &config->nof_rf_dev)){
         printf("ERROR: reading nof_rf_dev\n");
     }
